@@ -34,7 +34,7 @@ def lambda_handler(event, context):
         print('The largest service on %s is %s requiring %s CPU Shares and %s Memory Shares'
               % (clusterName, largestService['name'], largestService['cpu'], largestService['memory']))
 
-        clusterContainerInstancesList = ecs.list_container_instances(cluster=clusterName, status='ACTIVE')
+        clusterContainerInstancesList = ecs.list_container_instances(cluster=clusterName, status='ACTIVE')  # 100 limit
         print('The cluster (%s) has %s EC2 instances associated'
               % (clusterName, len(clusterContainerInstancesList['containerInstanceArns'])))
 
