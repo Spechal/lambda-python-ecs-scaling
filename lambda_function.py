@@ -1,7 +1,7 @@
 import boto3
 import datetime
 
-# todo -- some elements only allow you to list up to 10 items at a time; make iterators
+# todo -- some elements only allow you to list up to 10 or 100 items at a time; make iterators
 
 
 def lambda_handler(event, context):
