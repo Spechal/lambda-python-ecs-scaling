@@ -1,8 +1,25 @@
-# lambda-python-ecs-scaling
-Sends a metric (1 or 0) to CloudWatch based on a clusters capacity to place it's largest task
+# ECS Host Based Scaling Metrics
 
-1 = It does not have enough capacity
+This lambda function will inspect all ECS clusters and send a custom CloudWatch metric depending on various conditionals.
 
-0 = It does
+---
 
-I don't usually write python, so sorry for the IDE complaining about variable casing...
+As written, the Lambda function will send a metric of -1 to scale a cluster in based on the following:
+
+* The cluster must be able to support 2 or more of the largest task definitions for a service
+* The number of hosts currently registered to the cluster must be 3 or more
+
+As written, the Lambda function will send a metric of 0 to leave a cluster as is based on the following:
+
+* It must be able to support 1 or more of the largest service's task definition
+
+As written, the Lambda function will send a metric of 1 to scale a cluster out based on the following:
+
+* It must not be able to support the largest service's task definition
+
+---
+
+To test the function, you can use `python-lambda-local`.  Beware that this WILL send the metrics to CloudWatch as currently written.
+
+* `pip3 install python-lambda-local`
+* `python-lambda-local -t 300 -f lambda_handler lambda_function.py event.json`
